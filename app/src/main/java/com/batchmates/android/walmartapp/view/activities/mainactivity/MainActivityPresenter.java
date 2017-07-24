@@ -62,11 +62,20 @@ public class MainActivityPresenter implements MainActivityContract.Presenter {
             @Override
             public void onResponse(Call<WalmartHelper> call, Response<WalmartHelper> response) {
                 Log.d(TAG, "onResponse: responded using WalmartHelper");
+                double price=0;
                 for (int i = 0; i <response.body().getItems().size() ; i++) {
+                    if (response.body().getItems().get(i).getSalePrice()==null)
+                    {
+                        price=0.0;
+                    }
+                    else
+                    {
+                        price=response.body().getItems().get(i).getSalePrice();
+                    }
                     walmartPojos.add(new WalmartPojo(response.body().getItems().get(i).getName()
                             ,response.body().getItems().get(i).getBrandName()
                             ,response.body().getItems().get(i).getShortDescription()
-                            ,response.body().getItems().get(i).getSalePrice()
+                            ,price
                             ,response.body().getItems().get(i).getModelNumber()
                             ,response.body().getItems().get(i).getItemId()
                             ,response.body().getItems().get(i).getLargeImage()
@@ -79,7 +88,7 @@ public class MainActivityPresenter implements MainActivityContract.Presenter {
 
             @Override
             public void onFailure(Call<WalmartHelper> call, Throwable t) {
-
+                Log.d(TAG, "onFailure: "+t.toString());
             }
         });
     }

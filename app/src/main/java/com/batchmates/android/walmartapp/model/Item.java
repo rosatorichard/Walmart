@@ -44,7 +44,7 @@ public class Item implements Serializable
     private String productTrackingUrl;
     @SerializedName("standardShipRate")
     @Expose
-    private Integer standardShipRate;
+    private double standardShipRate;
     @SerializedName("marketplace")
     @Expose
     private Boolean marketplace;
@@ -207,7 +207,7 @@ public class Item implements Serializable
         this.productTrackingUrl = productTrackingUrl;
     }
 
-    public Integer getStandardShipRate() {
+    public double getStandardShipRate() {
         return standardShipRate;
     }
 

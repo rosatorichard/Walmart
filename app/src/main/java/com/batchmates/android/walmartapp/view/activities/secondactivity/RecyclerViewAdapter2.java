@@ -57,7 +57,11 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
             holder.discription.setText(walmartPojoSecondActivity.getDiscription());
             holder.discription.setMovementMethod(new ScrollingMovementMethod());
         }
-        double stars=Double.parseDouble(walmartPojoSecondActivity.getRating());
+        double stars=0;
+        if(walmartPojoSecondActivity.getRating()!=null)
+        {
+            stars=Double.parseDouble(walmartPojoSecondActivity.getRating());
+        }
         switch((int) stars)
         {
             case 1:

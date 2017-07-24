@@ -61,8 +61,8 @@ public class RetroFitHelper {
         Retrofit retrofit = Create();
         TYPE=type;
         items items=retrofit.create(RetroFitHelper.items.class);
-        return items.thisType(API_KEY,TYPE);
-//        return items.thispage(API_KEY);
+//        return items.thisType(API_KEY,TYPE);
+        return items.thispage(API_KEY);
     }
 
     public static Call<WalmartTypeHelper> getListTypeHelper()
