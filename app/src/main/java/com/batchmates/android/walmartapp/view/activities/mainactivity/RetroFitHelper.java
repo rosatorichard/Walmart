@@ -5,6 +5,8 @@ import android.util.Log;
 import com.batchmates.android.walmartapp.model.WalmartHelper;
 import com.batchmates.android.walmartapp.model.type.WalmartTypeHelper;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -27,8 +29,16 @@ public class RetroFitHelper {
 
     public static Retrofit Create()
     {
+
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(logging)
+                .build();
+
         Retrofit retro= new Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
@@ -52,6 +62,7 @@ public class RetroFitHelper {
         TYPE=type;
         items items=retrofit.create(RetroFitHelper.items.class);
         return items.thisType(API_KEY,TYPE);
+//        return items.thispage(API_KEY);
     }
 
     public static Call<WalmartTypeHelper> getListTypeHelper()
